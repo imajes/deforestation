@@ -1,33 +1,33 @@
 require 'bundler'
 Bundler.setup(:importer)
 Bundler.require(:importer)
-
-# 
-# d = Nokogiri::XML(open("mattly (irc.freenode.net).colloquyTranscript"))
-# 
-# d.xpath('//envelope').each do |r|
-#   sender = r.xpath('//sender')
-# end
+require 'pathname'
 
 module Deforestation
   class Parser
-    include ::HTTParty
-    base_uri 'localhost:9393'
+    include HTTParty
     
-    attr_accessor :data
+    base_uri '127.0.0.1:9393'
+    
+    attr_accessor :source, :sender, :hostmask, :destination, :original_id, :received_at, :message
   
-    def initialize
-      @data = {:sender => "imajes", :destination => "jacqui", :original_received_at => Time.now, :message => "testing", :hostmask => "james@imaj.es", :source => "testing", :original_message_id => "12312312" }
+    def initialize(data)
+      @data = {}.merge(data)
     end
     
     def send_to_mongo!
-      rv = self.class.post('/entries/new', :body => @data)
-      puts rv.inspect
+      begin
+        self.class.post('/entries/new', :body => prepare_data)
+      rescue ResponseError
+        raise "You need to run the server first!"
+      end
+    end
+    
+    protected
+    def prepare_data
+      {:source => source, :sender => sender, :hostmask => hostmask, :destination => destination, 
+       :original_id => original_id, :message => message, :original_received_at => received_at}
     end
     
   end
 end
-
-
-r = Deforestation::Parser.new
-r.send_to_mongo!

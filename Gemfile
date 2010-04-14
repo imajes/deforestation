@@ -14,5 +14,6 @@ end
 group :importer do
   gem 'nokogiri'
   gem 'httparty'
+  gem 'ruby-debug'
 end
 
