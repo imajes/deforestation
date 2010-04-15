@@ -31,7 +31,7 @@ module Deforestation
         r.children.each do |c|
           next unless c.attributes && c.attributes["id"]
           @original_message_id = c.attributes["id"].to_s
-          @received_at = c.attributes["received"].to_s
+          @received_at = Time.parse(c.attributes["received"].to_s)
           @message = c.inner_text
           send_to_mongo!
         end
@@ -51,7 +51,6 @@ module Deforestation
         @destination = 'imajes'
       end
     end
-    
     
   end
 end
