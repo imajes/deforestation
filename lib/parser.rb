@@ -5,7 +5,7 @@ require 'pathname'
 
 module Deforestation
   class Parser
-    include HTTParty
+    include ::HTTParty
     
     base_uri '127.0.0.1:9393'
     
