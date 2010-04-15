@@ -31,8 +31,8 @@ module Deforestation
         r.children.each do |c|
           next unless c.attributes && c.attributes["id"]
           @original_message_id = c.attributes["id"].to_s
-          @received_at = Time.parse(c.attributes["received"].to_s)
-          @message = c.inner_text
+          @received_at = Time.parse(c.attributes["received"].to_s).to_i ## turn it into an int...
+          @message = c.inner_text.strip
           send_to_mongo!
         end
       end
