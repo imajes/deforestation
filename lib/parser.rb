@@ -26,7 +26,7 @@ module Deforestation
     protected
     def prepare_data
       {:source => source, :sender => sender, :hostmask => hostmask, :destination => destination, 
-       :original_id => original_id, :message => message, :original_received_at => received_at}
+       :original_id => original_id, :message => message, :received_at => received_at}
     end
     
   end
