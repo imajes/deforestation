@@ -13,24 +13,28 @@ module Deforestation
     end
     
     def process!
-      @ndoc = Nokogiri::XML(@fh.read)
+      @ndoc = File.open(@fh.realpath) { |f| Nokogiri::XML(f) }
 
       @source = @ndoc.xpath('//log').first.attributes["source"].to_s
 
       @ndoc.xpath('//envelope').each do |r|
-        @sender = r.xpath('//sender').first.inner_text
-        @hostmask = r.xpath('//sender').first.attributes['hostmask'].to_s
+        r.children.each do |child|
+          next if child.blank? # skip blank nodes
 
-        ## need to supply this, if it's self then this is what happens, otherwise the last sender?
-        @destination = consider_sender(r.xpath('//sender').first.attributes['self'])
+          if 'sender' == child.name
+            @sender   = child.text
+            @hostmask = child['hostmask']
 
-        ## iterate for message
-        r.children.each do |c|
-          next unless c.attributes && c.attributes["id"]
-          @original_id = c.attributes["id"].to_s
-          @received_at = Time.parse(c.attributes["received"].to_s).to_i ## turn it into an int...
-          @message = c.inner_text.strip
-          send_to_mongo!
+            ## need to supply this, if it's self then this is what happens, otherwise the last sender?
+            @destination = consider_sender(child['self'])
+          else ## do msgs
+            next unless child['id']
+
+            @original_id = child["id"]
+            @received_at = Time.parse(child["received"]).to_i ## turn it into an int...
+            @message = child.text.strip
+            send_to_mongo!
+          end
         end
       end
     end
