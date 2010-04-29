@@ -10,10 +10,19 @@ namespace :deforestation do
 
     puts "now processing for #{log_path}"
     
+    idx = 0
+    MAX_FORKS = 10
+    
     d.each do |f|
       next if f == "." || f == ".."
+      break if idx > 3
       puts "processing #{f}..."
-      Deforestation::Colloquy.new("#{log_path}/#{f}")
+      @file = f
+      Kernel.fork {
+        lp = Deforestation::Colloquy.new("#{log_path}/#{@file}")
+        lp.process!
+      }
+      idx += 1
     end
   end
 end
