@@ -1,21 +1,13 @@
-class ProcessColloquy < CloudCrowd::Action
-  
-  # This runs first and gets us the list of logs we're going to process
-  # in this run
-  def split
-    log_path = ENV['LOG_PATH'] || '/Users/james/Documents/Colloquy Transcripts' ## fixme, generalize
-    d = Dir.new(log_path)
-    
-    bad_names = ['.', '..']
+require '../lib/importers/colloquy.rb'
 
-    d.reject!{|file| bad_names.include?(file) }
-    d.to_json
-  end
-  
+class ProcessColloquy < CloudCrowd::Action
+
   # this then runs on each, doing fun things for thems
   # 
   def process
-    parser = Deforestation::Colloquy.new(input_path)
+    file_to_parse = options["log_path"] + "/" + input
+    
+    parser = Deforestation::Colloquy.new(file_to_parse)
     parser.process!
   end
   
