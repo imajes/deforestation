@@ -59,7 +59,11 @@ module Deforestation
       post "/entries/new" do
         e = Deforestation::LogEntry.new(params)
         puts e.inspect
-        e.save!
+        begin
+          e.save!
+        rescue Mongo::OperationFailure
+          # dupe key, ignore
+        end
       end
       
       get "/entries" do

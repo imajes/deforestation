@@ -5,21 +5,20 @@ require 'pathname'
 
 module Deforestation
   class Parser
-    include ::HTTParty
-    
-    base_uri '127.0.0.1:9393'
+    include ::Mongo
     
     attr_accessor :source, :sender, :hostmask, :destination, :original_id, :received_at, :message
   
     def initialize(data)
-      @data = {}.merge(data)
+      @data = {}.merge(data) if data.is_a?(Hash)
+      db = Connection.new.db('deforestation')
+      @collection = db.collection('logFiles')
     end
     
     def send_to_mongo!
       begin
-        self.class.post('/entries/new', :body => prepare_data)
-      rescue ResponseError
-        raise "You need to run the server first!"
+        @collection.insert(prepare_data)
+      rescue ## dupe keys
       end
     end
     

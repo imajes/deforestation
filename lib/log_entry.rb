@@ -5,8 +5,6 @@ module Deforestation
     include Mongoid::Document
     include Mongoid::Timestamps
 
-    key :sender, :received_at, :original_id #composite key for uniq
-
     field :sender
     field :hostmask
     field :destination

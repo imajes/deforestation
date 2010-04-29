@@ -11,7 +11,7 @@ module Deforestation
     def initialize(file)
       @fh = Pathname.new(file)
       raise "Bad file given" if @fh.size == 0 || @fh.directory?
-      process!
+      super
     end
     
     def process!
@@ -21,7 +21,6 @@ module Deforestation
 
       @ndoc.xpath('//envelope').each do |r|
         @sender = r.xpath('//sender').first.inner_text
-        
         @hostmask = r.xpath('//sender').first.attributes['hostmask'].to_s
 
         ## need to supply this, if it's self then this is what happens, otherwise the last sender?

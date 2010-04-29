@@ -15,5 +15,8 @@ group :importer do
   gem 'nokogiri'
   gem 'httparty'
   gem 'ruby-debug'
+  gem 'mongo'
+  gem 'bson'
+  gem "bson_ext", "0.20.1"
 end
 
