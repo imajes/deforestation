@@ -22,6 +22,10 @@ module Deforestation
       end
     end
     
+    def process!
+      # defined in the child
+    end
+    
     protected
     def prepare_data
       {:source => source, :sender => sender, :hostmask => hostmask, :destination => destination, 
