@@ -15,7 +15,7 @@ module Deforestation
     def process!
       @ndoc = File.open(@fh.realpath) { |f| Nokogiri::XML(f) }
 
-      @source = @ndoc.xpath('//log').first.attributes["source"].to_s
+      @source = @ndoc.xpath('//log').first["source"].to_s
 
       @ndoc.xpath('//envelope').each do |r|
         r.children.each do |child|
