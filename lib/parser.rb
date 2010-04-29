@@ -19,8 +19,6 @@ module Deforestation
     
     def send_to_mongo!
       begin
-        d = prepare_data
-        puts d.inspect
         @collection.insert(prepare_data)
       rescue ## dupe keys
       end
