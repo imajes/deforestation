@@ -1,7 +1,8 @@
-require 'bundler'
-Bundler.setup(:web)
-Bundler.require(:web)
-
+require 'rubygems'
+require 'sinatra'
+require 'sinatra/mongoid'
+require "mongoid"
+require "bson"
 require 'erb'
 
 ## models

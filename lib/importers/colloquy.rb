@@ -1,6 +1,4 @@
-require 'bundler'
-Bundler.setup(:importer)
-Bundler.require(:importer)
+require File.join(File.dirname(__FILE__), "/../parser.rb")
 
 module Deforestation
   class Colloquy < Parser

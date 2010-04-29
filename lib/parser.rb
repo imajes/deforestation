@@ -1,6 +1,8 @@
-require 'bundler'
-Bundler.setup(:importer)
-Bundler.require(:importer)
+require 'rubygems'
+require 'nokogiri'
+require 'mongo'
+require 'bson'
+#require 'bson_ext'
 require 'pathname'
 
 module Deforestation
