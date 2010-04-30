@@ -41,9 +41,9 @@ module Deforestation
     end
     
     def consider_sender(self_as_sender)
-      if source =~ /%23/
+      if source =~ /^%23/
         ## channel, so that's the destination
-        @destination = source.split("/").reverse.first.gsub("%23", "#") ## tidy name for channel
+        @destination = source.gsub("%23", "#") ## tidy name for channel
       elsif self_as_sender
         # we're in a user chat, so send the cached destination
         @destination = @last_sender
