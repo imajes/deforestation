@@ -57,20 +57,18 @@ module Deforestation
       
       ## now to the meat of the app
       
-      post "/entries/new" do
-        e = Deforestation::LogEntry.new(params)
-        puts e.inspect
-        begin
-          e.save!
-        rescue Mongo::OperationFailure
-          # dupe key, ignore
-        end
-      end
       
-      get "/entries" do
-        @entries = Deforestation::LogEntry.all  #(:conditions => {:sender => 'imajes'})
-        
+      get "/entries/:source" do
+        source = params[:source]
+        @entries = Deforestation::LogEntry.where(:source => /(.*)#{source}/i).order_by([:received_at, :desc]).limit(100)
+        puts Time.now
         show :entries, true, @entries
       end
+      
+      get "/user/:source" do
+        @entries = Deforestation::LogEntry.where(:sender => params[:source]).order_by([:received_at, :desc])
+        show :user, true, {:entries => @entries, :source => params[:source]}
+      end
+      
   end
 end

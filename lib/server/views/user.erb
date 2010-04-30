@@ -1,0 +1,16 @@
+<div class="row bottomspace">
+  <div class="column wh-trans grid_12">
+    <h2>Things said by <%= locals[:source] %>...</h2>
+    <% locals[:entries].each do |l| %>
+      <p>
+        <span class="date">[<%= Time.at(l.received_at) %>]</span> 
+        <span class="destination">&laquo;<%=h l.destination %>&raquo;</span> 
+        <span class="message"><%=h l.message %></span>
+      </p>
+    <% end %>
+  </div>
+  <div class="column wh-trans grid_8">
+  
+  </div>
+  
+</div>

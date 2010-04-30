@@ -1,6 +1,16 @@
-
-<pre>
-<% locals.each do |e| %>
-  <%= e.inspect %>
-<% end %>
-</pre>
+<div class="row bottomspace">
+  <div class="column wh-trans grid_12">
+    <h2>In conversation with <%= params[:channel] %>...</h2>
+    <% locals.each do |l| %>
+      <p>
+        <span class="date">[<%= Time.at(l.received_at).strftime("%d/%m/%Y at %H:%M:%S") %>]</span> 
+        <span class="sender">&laquo;<%=h l.sender %>&raquo;</span> 
+        <span class="message"><%=h l.message %></span>
+      </p>
+    <% end %>
+  </div>
+  <div class="column wh-trans grid_8">
+  
+  </div>
+  
+</div>

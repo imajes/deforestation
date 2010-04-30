@@ -1,17 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-
-  <title>untitled</title>
-  
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>deforestation: digital logging.</title>
+<!--  <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.1.0/build/cssreset/reset-min.css"> -->
+  <link href="/stylesheets/grid.css" type="text/css" rel="stylesheet" media="screen">
+  <link rel="stylesheet" href="/stylesheets/main.css" type="text/css" media="screen" charset="utf-8">
+  <script type="text/javascript" src="http://use.typekit.com/rfz7txe.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 </head>
 
 <body>
-  <%= yield %>
-
+    <div id="topbar">
+      <ul>
+       <li><a href="/entries">Entries</a></li>
+       <li><a href="/search">Search</a></li>
+      </ul>
+    </div>
+    <%= yield %>
+  <br clear="all">
+  
+  <script type="text/javascript">
+  var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+  document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+  </script>
+  <script type="text/javascript">
+  try {
+  var pageTracker = _gat._getTracker("UA-15804919-1");
+  pageTracker._trackPageview();
+  } catch(err) {}</script>
 </body>
 </html>
-
-
-

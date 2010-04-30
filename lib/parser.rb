@@ -9,12 +9,12 @@ module Deforestation
   class Parser
     include ::Mongo
     
-    attr_accessor :source, :sender, :hostmask, :destination, :original_id, :received_at, :message
+    attr_accessor :source, :full_source, :sender, :hostmask, :destination, :original_id, :received_at, :message
   
     def initialize(data)
       @data = {}.merge(data) if data.is_a?(Hash)
       db = Connection.new.db('deforestation')
-      @collection = db.collection('logFiles')
+      @collection = db.collection('logEntries')
     end
     
     def send_to_mongo!
@@ -31,7 +31,7 @@ module Deforestation
     protected
     def prepare_data
       {:source => source, :sender => sender, :hostmask => hostmask, :destination => destination, 
-       :original_id => original_id, :message => message, :received_at => received_at}
+       :original_id => original_id, :message => message, :received_at => received_at, :full_source => full_source}
     end
     
   end
